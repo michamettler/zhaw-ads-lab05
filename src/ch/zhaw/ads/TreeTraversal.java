@@ -70,20 +70,20 @@ public class TreeTraversal<T extends Comparable<T>> implements Traversal<T> {
     }
 
     @Override
-    public void levelorder(Visitor<T> vistor) {
+    public void levelorder(Visitor<T> vis) {
         var q = new ArrayDeque<TreeNode<T>>();
         var node = root;
         if (node != null) q.add(node);
         while (!q.isEmpty()) {
             node = q.poll();
-            vistor.visit(node.getValue());
+            vis.visit(node.getValue());
             if (node.left != null) q.add(node.left);
             if (node.right != null) q.add(node.right);
         }
     }
 
     @Override
-    public void interval(T min, T max, Visitor<T> vistor) {
+    public void interval(T min, T max, Visitor<T> vis) {
 
     }
 }
