@@ -1,5 +1,7 @@
 package ch.zhaw.ads;
 
+import java.util.Stack;
+
 public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     protected TreeNode<T> root;
 
@@ -72,7 +74,18 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     protected int calcHeight(TreeNode<T> node) {
-        // TODO Implement
+        if (node == null) {
+            return 0;
+        }
+
+        int heightLeft = calcHeight(node.left);
+        int heightRight = calcHeight(node.right);
+
+        if (heightLeft > heightRight) {
+            return heightLeft + 1;
+        } else {
+            return heightRight + 1;
+        }
     }
 
     public int height() {
@@ -80,7 +93,18 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     protected int calcSize(TreeNode<T> p) {
-        // TODO Implement
+        Stack<TreeNode<T>> s = new Stack<>();
+        s.push(root);
+        int cnt = 0;
+        while (!s.empty()) {
+            TreeNode<T> node = s.pop();
+            cnt++;
+            TreeNode<T> left = node.left;
+            if (left != null) s.push(left);
+            TreeNode<T> right = node.right;
+            if (right != null) s.push(right);
+        }
+        return cnt;
     }
 
     public int size() {
