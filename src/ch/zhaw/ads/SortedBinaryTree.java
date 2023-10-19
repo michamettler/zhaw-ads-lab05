@@ -68,7 +68,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     public Traversal<T> traversal() {
-        // TODO Implement
+        return new TreeTraversal<>(root);
     }
 
     protected int calcHeight(TreeNode<T> node) {
