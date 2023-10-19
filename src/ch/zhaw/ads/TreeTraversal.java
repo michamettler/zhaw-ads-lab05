@@ -84,6 +84,22 @@ public class TreeTraversal<T extends Comparable<T>> implements Traversal<T> {
 
     @Override
     public void interval(T min, T max, Visitor<T> vis) {
+        Stack<TreeNode<T>> s = new Stack<>();
+        s.push(root);
 
+        while (!s.isEmpty()) {
+            TreeNode<T> curr = s.pop();
+            if (curr == null) continue;
+            if (curr.getValue().compareTo(min) >= 0 && curr.getValue().compareTo(max) <= 0) {
+                vis.visit(curr.getValue());
+                s.push(curr.right);
+                s.push(curr.left);
+            }
+            if (curr.getValue().compareTo(min) < 0) {
+                s.push(curr.right);
+            } else if (curr.getValue().compareTo(max) > 0) {
+                s.push(curr.left);
+            }
+        }
     }
 }
