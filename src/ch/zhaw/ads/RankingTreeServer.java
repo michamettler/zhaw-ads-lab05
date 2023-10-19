@@ -5,13 +5,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RankingTreeServer implements CommandExecutor {
 
     public Tree<Competitor> createTree(String rankingText) {
-        // TODO Implement
+        Tree<Competitor> competitorTree = new SortedBinaryTree<>();
+        String[] lines = rankingText.split("\n");
+        for (String line : lines) {
+            String name = line.split(";")[0];
+            String time = line.split(";")[1];
+            competitorTree.add(new Competitor(0, name,  time));
+        }
+        return competitorTree;
     }
 
     public String createSortedText(Tree<Competitor> competitorTree) {
         AtomicInteger rank = new AtomicInteger(1);
         StringBuilder sb = new StringBuilder();
-        competitorTree.traversal() // TODO Implement
+        competitorTree.traversal().inorder(c -> {c.setRank(rank.getAndIncrement()); sb.append(c).append("\n");});
         return sb.toString();
     }
 
